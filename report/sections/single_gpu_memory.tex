@@ -1,0 +1,29 @@
+\Needspace{12\baselineskip}
+\section{Single-GPU Memory}
+\label{sec:single-gpu-memory}
+
+\problem{gradient\_checkpointing}{Memory-Optimal Gradient Checkpointing}{4}
+
+Consider $N$ sequential Transformer blocks, where saved block residuals dominate checkpoint bookkeeping.
+
+\partquestion{a}{Describe a checkpoint arrangement, including nested calls if useful, that minimizes peak activation memory while ignoring compute cost. Give asymptotic peak memory and compute as functions of $N$.}
+\deliverable{A 3--5 sentence explanation and a short code sketch.}
+\answer
+
+\partquestion{b}{For the XL model with batch size 4 and sequence length 2048, choose the best single-level checkpoint block size when only one recomputation step is affordable. Validate with peak-memory profiling and compare the next smaller and larger block sizes.}
+\deliverable{A 3--5 sentence rationale and measured peak memory.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Checkpoint block size & Peak memory & Notes \\
+\midrule
+Next smaller & & \\
+Selected & & \\
+Next larger & & \\
+\bottomrule
+\end{tabular}
+\caption{Peak-memory comparison for single-level checkpointing.}
+\label{tab:checkpoint-memory}
+\end{table}
+\answer

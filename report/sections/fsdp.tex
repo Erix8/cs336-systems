@@ -1,0 +1,28 @@
+\Needspace{12\baselineskip}
+\section{Fully-Sharded Data Parallel}
+\label{sec:fsdp}
+
+\problem{fsdp}{Fully-Sharded Data Parallel}{15}
+
+Implement FSDP for a PyTorch module by sharding Linear and Embedding weights, all-gathering them as needed in forward and backward, reduce-scattering gradients, and freeing gathered weights. Keep master weights and optimizer updates in FP32; optionally communicate and compute in a requested lower precision.
+
+\deliverable{A brief implementation summary and the specified correctness-validation result.}
+\answer
+
+\problem{fsdp\_accounting}{FSDP Accounting}{5}
+
+\partquestion{a}{Using the previous memory analysis, estimate peak memory saved by FSDP, ignoring preallocated all-gather buffers.}
+\deliverable{A 2--3 sentence response with the estimate and reasoning.}
+\answer
+
+\partquestion{b}{Profile the XL model on two GPUs and determine whether weight all-gathers finish in time for the forward pass.}
+\deliverable{A 2--3 sentence response with timings and supporting Nsight screenshots.}
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][1.2in][c]{0.46\textwidth}{\centering FSDP all-gather trace}}
+\hfill
+\fbox{\parbox[c][1.2in][c]{0.46\textwidth}{\centering Forward-compute trace}}
+\caption{Nsight evidence for FSDP weight all-gather scheduling.}
+\label{fig:fsdp-allgather}
+\end{figure}
+\answer

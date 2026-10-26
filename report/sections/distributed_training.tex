@@ -1,0 +1,93 @@
+\Needspace{12\baselineskip}
+\section{Distributed Data Parallel Training}
+\label{sec:distributed-training}
+
+\problem{distributed\_communication\_single\_node}{Distributed Communication (Single Node)}{5}
+
+Benchmark all-reduce for float32 tensors of 1 MB, 10 MB, 100 MB, and 1 GB with 2, 4, and 6 processes/GPUs on one node.
+
+\deliverable{Plots and/or tables comparing the settings, with 2--3 sentences discussing the results and interactions among factors.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Processes / GPUs & 1 MB & 10 MB & 100 MB & 1 GB \\
+\midrule
+2 & & & & \\
+4 & & & & \\
+6 & & & & \\
+\bottomrule
+\end{tabular}
+\caption{Single-node all-reduce latency by message size and process count.}
+\label{tab:all-reduce}
+\end{table}
+\answer
+
+\problem{naive\_ddp}{Naïve DDP}{5}
+
+Implement data-parallel training that averages individual parameter gradients after backward.
+
+\deliverable{A brief implementation summary and the specified correctness-validation result.}
+\answer
+
+\problem{naive\_ddp\_benchmarking}{Naïve DDP Benchmarking}{3}
+
+Benchmark the XL model on one node with two GPUs. Measure iteration time and the fraction spent communicating gradients.
+
+\deliverable{Benchmark setup and measured iteration and communication times.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Configuration & Iteration time & Gradient communication time & Communication fraction \\
+\midrule
+XL, 1 node $\times$ 2 GPUs & & & \\
+\bottomrule
+\end{tabular}
+\caption{Naïve DDP benchmark.}
+\label{tab:naive-ddp}
+\end{table}
+
+\problem{minimal\_ddp\_flat\_benchmarking}{Minimal DDP with Flat Gradients Benchmarking}{2}
+
+Compare a single batched all-reduce over flattened gradients with individual parameter all-reduces, using the same XL two-GPU setup.
+
+\deliverable{Measured iteration and communication time for flat gradients, plus a 1--2 sentence comparison.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Gradient communication & Iteration time & Communication time \\
+\midrule
+One all-reduce per parameter & & \\
+Single flattened all-reduce & & \\
+\bottomrule
+\end{tabular}
+\caption{Individual versus flattened gradient communication.}
+\label{tab:flat-ddp}
+\end{table}
+\answer
+
+\problem{ddp\_overlap\_individual\_parameters}{DDP with Overlapping Individual Parameters}{5}
+
+Implement a DDP wrapper that broadcasts initial weights and asynchronously averages individual gradients as they become available during backward.
+
+\deliverable{A brief implementation summary and the specified correctness-validation result.}
+\answer
+
+\problem{ddp\_overlap\_individual\_parameters\_benchmarking}{DDP Overlapping Individual Parameters Benchmarking}{1}
+
+\partquestion{a}{Compare the overlapped implementation with individual all-reduces and a single flat all-reduce in the XL, one-node, two-GPU setup.}
+\deliverable{Iteration time and a 1--2 sentence comparison.}
+\answer
+
+\partquestion{b}{Use Nsight Systems to compare initial DDP with the overlapped implementation and show whether communication overlaps backward computation.}
+\deliverable{Two profiler screenshots, one for each implementation.}
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][1.2in][c]{0.46\textwidth}{\centering Initial DDP trace}}
+\hfill
+\fbox{\parbox[c][1.2in][c]{0.46\textwidth}{\centering Overlapped DDP trace}}
+\caption{Nsight traces comparing gradient communication overlap.}
+\label{fig:ddp-overlap}
+\end{figure}

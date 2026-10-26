@@ -1,0 +1,41 @@
+\Needspace{12\baselineskip}
+\section{Optimizer State Sharding}
+\label{sec:optimizer-state-sharding}
+
+\problem{optimizer\_state\_sharding}{Optimizer State Sharding}{15}
+
+Implement a sharded optimizer wrapper that partitions parameters across ranks, steps only the local shard, synchronizes updated parameters, and supports adding parameter groups.
+
+\deliverable{A brief implementation summary and the specified correctness-validation result.}
+\answer
+
+\problem{optimizer\_state\_sharding\_accounting}{Optimizer State Sharding Accounting}{5}
+
+\partquestion{a}{For the XL model on one node with two GPUs, measure peak memory with and without state sharding after initialization, before the optimizer step, and after the optimizer step. Explain the memory breakdown and whether it matches expectations.}
+\deliverable{A 2--3 sentence response with peak memory and component breakdown.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}llrr@{}}
+\toprule
+Training method & Measurement point & Rank 0 peak memory & Rank 1 peak memory \\
+\midrule
+Unsharded & After initialization & & \\
+Unsharded & Before optimizer step & & \\
+Unsharded & After optimizer step & & \\
+Sharded & After initialization & & \\
+Sharded & Before optimizer step & & \\
+Sharded & After optimizer step & & \\
+\bottomrule
+\end{tabular}
+\caption{Peak memory with and without optimizer-state sharding.}
+\label{tab:optimizer-sharding-memory}
+\end{table}
+\answer
+
+\partquestion{b}{Measure iteration time with and without optimizer-state sharding for the same setup.}
+\deliverable{A 2--3 sentence response with timings.}
+\answer
+
+\partquestion{c}{Compare this optimizer-state-sharding approach with ZeRO Stage 1, especially for memory and communication volume.}
+\deliverable{A 2--3 sentence comparison.}
+\answer

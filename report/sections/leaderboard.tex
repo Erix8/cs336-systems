@@ -1,0 +1,24 @@
+\Needspace{12\baselineskip}
+\section{Leaderboard: Fastest Training Step}
+\label{sec:leaderboard}
+
+\problem{leaderboard}{Leaderboard: Fastest Training Step}{10}
+
+Benchmark a complete forward, loss, backward, and AdamW update for the specified 8B model, batch size 2, sequence length 32,768, and two B200 GPUs. The run must complete within 10 minutes from empty PyTorch and Triton caches.
+
+\deliverable{The best wall-clock time for one full training step with AdamW.}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}llr@{}}
+\toprule
+Hardware & Configuration & Full-step wall-clock time \\
+\midrule
+2 $\times$ B200 & Batch 2, sequence length 32{,}768 & \\
+\bottomrule
+\end{tabular}
+\caption{Leaderboard benchmark result.}
+\label{tab:leaderboard}
+\end{table}
+
+\answer

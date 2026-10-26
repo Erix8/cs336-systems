@@ -1,0 +1,55 @@
+\problem{memory\_profiling}{Memory Profiling}{4}
+
+Profile the XL model's inference and full training step at context lengths 128 and 2048.
+
+\partquestion{a}{Show active-memory timelines for inference and a complete training step. Can the phases be identified from the observed peaks?}
+\deliverable{Two memory-viz screenshots and a 2--3 sentence response.}
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][1.4in][c]{0.46\textwidth}{\centering Forward-pass active-memory timeline}}
+\hfill
+\fbox{\parbox[c][1.4in][c]{0.46\textwidth}{\centering Full-training-step active-memory timeline}}
+\caption{XL-model memory timelines; replace the placeholders with exported screenshots.}
+\label{fig:memory-timelines}
+\end{figure}
+\answer
+
+\partquestion{b}{Report peak memory for forward and full training at each context length.}
+\deliverable{A table with the two peak-memory measurements per context length.}
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Context length & Forward peak memory & Training-step peak memory \\
+\midrule
+128 & & \\
+2048 & & \\
+\bottomrule
+\end{tabular}
+\caption{Peak memory of the XL model by context length.}
+\label{tab:memory-peaks}
+\end{table}
+
+\partquestion{c}{Measure mixed-precision peak memory for forward and a full training step. Does mixed precision materially change memory use?}
+\deliverable{A 2--3 sentence response.}
+\answer
+
+\partquestion{d}{For the reference XL configuration, derive the single-precision size of one residual-stream activation tensor in MiB.}
+\deliverable{A 1--2 sentence response with the derivation.}
+\answer
+
+\partquestion{e}{At reduced memory-viz detail, what is the size of the largest visible allocations, and where do they originate according to their stack traces?}
+\deliverable{A 1--2 sentence response.}
+\answer
+
+\partquestion{f}{Use Nsight Systems to identify memory saved for backward by one TransformerBlock and its five largest contributing operations. Estimate the memory occupied by that block's produced gradients and compare it with expectations.}
+\deliverable{Nsight screenshots and a 1--2 paragraph response.}
+\begin{figure}[htbp]
+\centering
+\fbox{\parbox[c][1.25in][c]{0.46\textwidth}{\centering Nsight screenshot: saved activations}}
+\hfill
+\fbox{\parbox[c][1.25in][c]{0.46\textwidth}{\centering Nsight screenshot: backward gradients}}
+\caption{Nsight evidence for per-block activation and gradient memory.}
+\label{fig:nsys-memory}
+\end{figure}
+\answer

@@ -1,0 +1,41 @@
+\Needspace{12\baselineskip}
+\section{Benchmarking and Profiling Harness}
+\label{sec:profiling}
+
+\problem{benchmarking\_script}{Benchmarking Script}{4}
+
+\partquestion{a}{Implement a command-line script that initializes a Transformer from the supplied hyperparameters, creates random inputs, performs configurable warm-up steps, and measures forward-only, forward-and-backward, or full training steps. Synchronize CUDA after each measured step.}
+\deliverable{A benchmarking script supporting the three timing modes.}
+\answer
+
+\partquestion{b}{For each model size in Table 1, measure forward, backward, and optimizer-step time with 5 warm-up steps and 10 measurement steps. Report the mean and standard deviation, and describe the variability.}
+\deliverable{A concise response with timings and commentary.}
+\answer
+
+\partquestion{c}{Repeat without warm-up, then with one or two warm-up steps. Explain how warm-up changes the measurements.}
+\deliverable{A short response explaining the observed differences.}
+\answer
+
+\problem{nsys\_profile}{Nsight Systems Profiling}{5}
+
+Profile forward, backward, and optimizer work for two model sizes and three power-of-two context lengths greater than 128, including the largest context that fits in memory.
+
+\partquestion{a}{What is the total forward-pass time, and how does it compare with the Python benchmark?}
+\deliverable{A concise response with timings.}
+\answer
+
+\partquestion{b}{Which CUDA kernel uses the most cumulative GPU time in the forward pass, how many times is it invoked, and is it also the largest contributor in forward plus backward?}
+\deliverable{A concise response.}
+\answer
+
+\partquestion{c}{Which non-matmul kernels account for notable CUDA time in the forward pass?}
+\deliverable{A concise response.}
+\answer
+
+\partquestion{d}{For a complete training step, how does the fraction of time spent in matmuls and other kernels compare with inference?}
+\deliverable{A concise response.}
+\answer
+
+\partquestion{e}{Compare self-attention softmax time with its matmul time, and relate the timing difference to their FLOP counts.}
+\deliverable{A concise response.}
+\answer

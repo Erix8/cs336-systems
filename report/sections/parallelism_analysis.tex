@@ -1,0 +1,79 @@
+\Needspace{12\baselineskip}
+\section{Analyzing Parallelism Strategies}
+\label{sec:parallelism-analysis}
+
+\subsection{Communication Primitives}
+\problem{alternate\_ring\_all\_reduce}{Alternate Ring All-Reduce}{1}
+
+\deliverable{An expression in terms of $S$, $N$, and $W$, with a one-sentence justification.}
+\answer
+
+\subsection{Analyzing Data Parallelism}
+\problem{data\_parallel\_calcs}{Data Parallel Calculations}{3}
+
+Assume FP16 weights and activations, device compute speed $C$ FLOP/s, egress bandwidth $W$ bytes/s, and matmul cost $2ABC$ FLOPs.
+
+\partquestion{a}{How many FLOPs does the backward pass require with $N_{DP}$ data-parallel devices, ignoring non-matmul operations?}
+\deliverable{An expression in $B,D,D_{FF},N_{DP}$ and a one-sentence justification.}
+\answer
+
+\partquestion{b}{How much communication time does the backward pass require with $N_{DP}$ devices?}
+\deliverable{An expression in the relevant subset of $B,D,D_{FF},N_{DP},W$ and a one-sentence justification.}
+\answer
+
+\partquestion{c}{For fixed other parameters, derive the largest $N_{DP}$ before communication becomes the bottleneck.}
+\deliverable{An inequality for $N_{DP}$ and a one-sentence justification.}
+\answer
+
+\subsection{Analyzing Fully-Sharded Data Parallelism}
+\problem{fsdp\_calcs}{Fully-Sharded Data Parallel Calculations}{3}
+
+\partquestion{a}{Give backward- and forward-pass FLOP counts with $N_{FSDP}$ devices.}
+\deliverable{Two expressions in $B,D,D_{FF},N_{FSDP}$ with one-sentence justifications.}
+\answer
+
+\partquestion{b}{Give backward- and forward-pass communication times with $N_{FSDP}$ devices.}
+\deliverable{Two expressions in the relevant subset of $B,D,D_{FF},N_{FSDP},W$ with justifications.}
+\answer
+
+\partquestion{c}{Derive the largest $N_{FSDP}$ before the backward and forward passes become communication-bound.}
+\deliverable{Two inequalities and one-sentence justifications.}
+\answer
+
+\subsection{Analyzing Tensor Parallelism}
+\problem{tp\_calcs}{Tensor Parallel Calculations}{4}
+
+\partquestion{a}{Write the tensor-parallel backward pass for the specified FFN sharding, producing each device's weight gradients and $d x$.}
+\deliverable{The backward-pass equations in terms of the specified activations, sharded weights, and collectives.}
+\answer
+
+\partquestion{b}{Give forward- and backward-pass FLOP counts with $N_{TP}$ devices.}
+\deliverable{Two expressions in $B,D,D_{FF},N_{TP}$ with justifications.}
+\answer
+
+\partquestion{c}{Give forward- and backward-pass communication times with $N_{TP}$ devices.}
+\deliverable{Two expressions in the relevant subset of $B,D,D_{FF},N_{TP},W$ with justifications.}
+\answer
+
+\partquestion{d}{Derive the largest $N_{TP}$ before the backward and forward passes become communication-bound.}
+\deliverable{Two inequalities and one-sentence justifications.}
+\answer
+
+\subsection{Two-Dimensional Parallelism (FSDP + TP)}
+\problem{fsdp\_tp\_calcs}{2D Parallelism Calculations}{6}
+
+\partquestion{a}{Give the forward-pass FLOP count with $N_{FSDP}$ FSDP and $N_{TP}$ TP.}
+\deliverable{An expression in $B,D,D_{FF},N_{FSDP},N_{TP}$ and a one-sentence justification.}
+\answer
+
+\partquestion{b}{Give forward-pass communication time when collectives on FSDP and TP axes can overlap.}
+\deliverable{An expression in the relevant variables, written as the maximum of the two collective costs, with a one-sentence justification.}
+\answer
+
+\partquestion{c}{Under optimal $N_{TP}$ and $N_{FSDP}$, derive the maximum total device count $N=N_{TP}N_{FSDP}$ before the forward pass becomes communication-bound.}
+\deliverable{An inequality and a few sentences and equations of justification.}
+\answer
+
+\partquestion{d}{Repeat the maximum-device-count calculation when FSDP-axis and TP-axis collectives share network resources and cannot overlap.}
+\deliverable{An inequality and a few sentences and equations of justification.}
+\answer

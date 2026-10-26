@@ -1,0 +1,37 @@
+\problem{mixed\_precision\_accumulation}{Mixed-Precision Accumulation}{1}
+
+Run the assignment's repeated-addition example with FP32 accumulation, FP16 accumulation, and FP16 values accumulated in FP32. Compare the resulting values and explain their accuracy.
+
+\deliverable{A 2--3 sentence response.}
+\answer
+
+\problem{benchmarking\_mixed\_precision}{Benchmarking Mixed Precision}{2}
+
+\partquestion{a}{For the specified ToyModel under FP16 autocast, identify the dtype of the parameters, first linear output, layer-normalization output, logits, loss, and gradients.}
+\deliverable{The dtype of each listed component.}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Component & Dtype \\
+\midrule
+Model parameters & \\
+First feed-forward layer output & \\
+Layer-normalization output & \\
+Predicted logits & \\
+Loss & \\
+Gradients & \\
+\bottomrule
+\end{tabular}
+\caption{Dtypes in the FP16 autocast ToyModel.}
+\label{tab:autocast-dtypes}
+\end{table}
+
+\partquestion{b}{Which layer-normalization operations are sensitive to mixed precision? Does BF16 require the same special treatment as FP16, and why?}
+\deliverable{A 2--3 sentence response.}
+\answer
+
+\partquestion{c}{Add optional BF16 mixed precision to the benchmark and compare forward and backward timings against full precision for every model size. Describe trends with model size.}
+\deliverable{A 2--3 sentence response with timings and commentary.}
+\answer
